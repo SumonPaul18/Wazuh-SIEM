@@ -1,0 +1,45 @@
++++++++++++++++++++++++++++++++++++++++++++++
++ Deploying Wazuh agents on Linux endpoints +
++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++
++ For Ubuntu +
+++++++++++++++
+
+1. Install the GPG key:
+
+curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
+
+2. Add the repository:
+
+echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
+
+3. Update the package information:
+
+apt-get update
+
+4. Install wazuh-agent with WAZUH_MANAGER IP:
+
+WAZUH_MANAGER="103.131.136.69" apt-get install wazuh-agent
+
+5. Enable/start the Wazuh agent service:
+
+systemctl daemon-reload
+systemctl enable wazuh-agent
+systemctl start wazuh-agent
+
++++++++++++++++++ Installation Complete +++++++++++++++++
+
+# Disable the Wazuh agent service.
+
+systemctl disable wazuh-agent
+
+systemctl daemon-reload
+
+# Uninstall a Wazuh agent from Ubuntu:
+
+apt-get remove wazuh-agent
+
+apt-get remove --purge wazuh-agent
+
++++++++++++++++++ Deploy Wazuh Agent Finish +++++++++++++++
